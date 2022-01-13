@@ -1,0 +1,52 @@
+Traceback (most recent call last):
+  File "/home/haoting/.virtualenvs/brain_encoding_decoding/lib/python3.8/site-packages/jupyter_cache/executors/utils.py", line 51, in single_nb_execution
+    executenb(
+  File "/home/haoting/.virtualenvs/brain_encoding_decoding/lib/python3.8/site-packages/nbclient/client.py", line 1093, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/home/haoting/.virtualenvs/brain_encoding_decoding/lib/python3.8/site-packages/nbclient/util.py", line 84, in wrapped
+    return just_run(coro(*args, **kwargs))
+  File "/home/haoting/.virtualenvs/brain_encoding_decoding/lib/python3.8/site-packages/nbclient/util.py", line 62, in just_run
+    return loop.run_until_complete(coro)
+  File "/usr/lib/python3.8/asyncio/base_events.py", line 616, in run_until_complete
+    return future.result()
+  File "/home/haoting/.virtualenvs/brain_encoding_decoding/lib/python3.8/site-packages/nbclient/client.py", line 559, in async_execute
+    await self.async_execute_cell(
+  File "/home/haoting/.virtualenvs/brain_encoding_decoding/lib/python3.8/site-packages/nbclient/client.py", line 854, in async_execute_cell
+    self._check_raise_for_error(cell, exec_reply)
+  File "/home/haoting/.virtualenvs/brain_encoding_decoding/lib/python3.8/site-packages/nbclient/client.py", line 756, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+from nilearn.decomposition import DictLearning
+
+# Initialize DictLearning object
+dict_learn = DictLearning(n_components=20, smoothing_fwhm=6.,
+                          memory="nilearn_cache", memory_level=2,
+                          random_state=0)
+# Fit to the data
+dict_learn.fit(func_file)
+# Resting state networks/maps in attribute `components_img_`
+components_img = dict_learn.components_img_
+
+# Visualization of functional networks
+# Show networks using plotting utilities
+from nilearn.image import mean_img
+mean_haxby = mean_img(func_file)
+plotting.plot_prob_atlas(components_img, 
+                         bg_img=mean_haxby, 
+                         view_type='filled_contours',
+                         title='Dictionary Learning maps')
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mNameError[0m                                 Traceback (most recent call last)
+[0;32m/tmp/ipykernel_374929/3425218756.py[0m in [0;36m<module>[0;34m[0m
+[1;32m     14[0m [0;32mfrom[0m [0mnilearn[0m[0;34m.[0m[0mimage[0m [0;32mimport[0m [0mmean_img[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     15[0m [0mmean_haxby[0m [0;34m=[0m [0mmean_img[0m[0;34m([0m[0mfunc_file[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m---> 16[0;31m plotting.plot_prob_atlas(components_img, 
+[0m[1;32m     17[0m                          [0mbg_img[0m[0;34m=[0m[0mmean_haxby[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     18[0m                          [0mview_type[0m[0;34m=[0m[0;34m'filled_contours'[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+
+[0;31mNameError[0m: name 'plotting' is not defined
+NameError: name 'plotting' is not defined
+
